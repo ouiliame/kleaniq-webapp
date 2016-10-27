@@ -1,0 +1,27 @@
+#kiq-site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+#kiq-site-triangles {
+  position: absolute;
+  z-index: -100;
+  top: 0;
+  left: 0;
+}
+
+#kiq-site-header {
+  margin-top: 15px;
+}
+
+#kiq-site-content {
+  flex: 1 0 auto;
+}
+
+#kiq-site-footer {
+  padding: 15px;
+  margin: 15px;
+  background-color: white;
+  text-align: center;
+}
