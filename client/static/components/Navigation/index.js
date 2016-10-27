@@ -9,7 +9,13 @@ import {
   Header,
   Image,
   Item,
-  List
+  List,
+  Modal,
+  Grid,
+  Form,
+  Input,
+  Segment,
+  Icon
 } from 'semantic-ui-react';
 
 import './style.css';
@@ -108,12 +114,12 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        isOpen: false,
-        selectedItem: '',
-        bgWidth: 0,
-        bgHeight: 0,
-        bgX: 0,
-        bgY: 0
+      isOpen: false,
+      selectedItem: '',
+      bgWidth: 0,
+      bgHeight: 0,
+      bgX: 0,
+      bgY: 0
     }
   }
 
@@ -126,12 +132,12 @@ class Navigation extends Component {
     let {top, left} = this._getMenuItemCoords(selectedItem);
 
     this.setState({
-        isOpen: true,
-        selectedItem,
-        bgWidth: width,
-        bgHeight: height,
-        bgX: left,
-        bgY: top
+      isOpen: true,
+      selectedItem,
+      bgWidth: width,
+      bgHeight: height,
+      bgX: left,
+      bgY: top
     });
 
     let content = $("#kiq-menu-content ." + selectedItem);
@@ -202,80 +208,126 @@ class Navigation extends Component {
       );
     }
 
-  render() {
+    render() {
 
-    let bgStyle;
+      let bgStyle;
 
-    if (this.state.isOpen) {
+      if (this.state.isOpen) {
 
-      let {width, height} = this._getMenuDimensions(this.state.selectedItem);
-      let {top, left} = this._getMenuItemCoords(this.state.selectedItem);
+        let {width, height} = this._getMenuDimensions(this.state.selectedItem);
+        let {top, left} = this._getMenuItemCoords(this.state.selectedItem);
 
-      bgStyle = {
-        X: spring(left),
-        Y: spring(top),
-        width: spring(width),
-        height: spring(height),
-        opacity: spring(1)
+        bgStyle = {
+          X: spring(left),
+          Y: spring(top),
+          width: spring(width),
+          height: spring(height),
+          opacity: spring(1)
+        }
+      } else {
+        bgStyle = {
+          X: spring(this.state.bgX),
+          Y: spring(this.state.bgY),
+          width: spring(this.state.bgWidth),
+          height: spring(this.state.bgHeight),
+          opacity: spring(0)
+        }
       }
-    } else {
-      bgStyle = {
-        X: spring(this.state.bgX),
-        Y: spring(this.state.bgY),
-        width: spring(this.state.bgWidth),
-        height: spring(this.state.bgHeight),
-        opacity: spring(0)
-      }
-    }
 
-    return (
-      <div>
-        <Motion style={bgStyle}>
-          { (style) => this._makeBackground(style) }
-        </Motion>
+      return (
+        <div>
+          <Motion style={bgStyle}>
+            { (style) => this._makeBackground(style) }
+          </Motion>
 
-        <div id="kiq-menu-content">
-          <SolutionsMenu onMouseLeave={this._leave} />
-          <EnvironmentMenu onMouseLeave={this._leave} />
-          <CompanyMenu onMouseLeave={this._leave} />
+          <div id="kiq-menu-content">
+            <SolutionsMenu onMouseLeave={this._leave} />
+            <EnvironmentMenu onMouseLeave={this._leave} />
+            <CompanyMenu onMouseLeave={this._leave} />
+          </div>
+
+          <Container id='kiq-menu'>
+
+            <div id="kiq-menu-left">
+              <object className='hvr-grow' id='kiq-menu-logo' type='image/svg+xml' data='/images/logo.svg'></object>
+            </div>
+
+            <div id="kiq-menu-center">
+              <ul>
+                <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
+                  onMouseLeave={this._leave}>
+                  Solutions
+                </li>
+                <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
+                  onMouseLeave={this._leave}>
+                  Environment
+                </li>
+                <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
+                  onMouseLeave={this._leave}>
+                  Company
+                </li>
+              </ul>
+            </div>
+
+            <div id="kiq-menu-right">
+              <ul>
+                <li>Help</li>
+                <Modal dimmer='blurring' trigger={<li><Button>Sign In</Button></li>}>
+                  <Grid columns={2}>
+                    <Grid.Column>
+                      <Segment basic padded='very'>
+                        <Form>
+                          <Form.Field>
+                            <label>User ID</label>
+                            <Input icon='users' iconPosition='left' placeholder='User ID' />
+                          </Form.Field>
+                          <Form.Field>
+                            <label>Password</label>
+                            <Input icon='lock' iconPosition='left' placeholder='Password' />
+                          </Form.Field>
+                          <Button primary fluid type='submit'>Login</Button><br/>
+                          <Button fluid>I can't log in</Button>
+                        </Form>
+                      </Segment>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <div style={{paddingTop: 25, paddingBottom: 25, paddingRight:25}}>
+                        <Header as='h2'>
+                          <Header.Content>
+                            No account? Sign up today.
+                            <Header.Subheader>
+                              Join the world's most advanced kitchen network
+                            </Header.Subheader>
+                          </Header.Content>
+                        </Header>
+                        <Form>
+                          <Form.Field>
+                            <label>Your Name</label>
+                            <Input icon='user' iconPosition='left' placeholder='Your Name' />
+                          </Form.Field>
+                          <Form.Field>
+                            <label>Phone Number</label>
+                            <Input icon='call' iconPosition='left' placeholder='Phone Number' />
+                          </Form.Field>
+                          <Form.Field>
+                            <label>Establishment Address</label>
+                            <Input icon='marker' iconPosition='left' placeholder='Establishment' />
+                          </Form.Field>
+                          <Button primary fluid type='submit'>Request a demo</Button><br/>
+                        </Form>
+                      </div>
+                    </Grid.Column>
+                  </Grid>
+                </Modal>
+              </ul>
+            </div>
+
+
+          </Container>
         </div>
 
-        <Container id='kiq-menu'>
+      );
+    }
+  };
 
-          <div id="kiq-menu-left">
-            <object className='hvr-grow' id='kiq-menu-logo' type='image/svg+xml' data='/images/logo.svg'></object>
-          </div>
-
-          <div id="kiq-menu-center">
-            <ul>
-              <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
-                onMouseLeave={this._leave}>
-                Solutions
-              </li>
-              <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
-                onMouseLeave={this._leave}>
-                Environment
-              </li>
-              <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
-                onMouseLeave={this._leave}>
-                Company
-              </li>
-            </ul>
-          </div>
-
-          <div id="kiq-menu-right">
-            <ul>
-              <li>Help</li>
-              <li>Sign Up</li>
-            </ul>
-          </div>
-
-
-        </Container>
-      </div>
-
-    );
-  }
-};
-
-export default Navigation;
+  export default Navigation;
