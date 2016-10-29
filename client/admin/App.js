@@ -19,10 +19,6 @@ class App extends React.Component {
   componentDidMount() {
     $(window).resize(() => this.updateTriangles());
     this.updateTriangles();
-
-    if (!this.props.loggedIn) {
-      hashHistory.replace('login');
-    }
   }
 
   updateTriangles() {
@@ -47,7 +43,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  loggedIn: state.user.isAuthenticated
+  loggedIn: state.user.get('isAuthenticated')
 });
 
 export default connect(mapStateToProps)(App);

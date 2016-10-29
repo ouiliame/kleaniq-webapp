@@ -9,12 +9,6 @@ import './style.css';
 @autobind
 class LoginPage extends React.Component {
 
-  componentDidMount() {
-    if (this.props.isAuthenticated) {
-      hashHistory.replace('map');
-    }
-  }
-
   handleSubmit(e, formData) {
     e.preventDefault();
     const { email, password } = formData;
@@ -27,8 +21,14 @@ class LoginPage extends React.Component {
         <Segment id="login-segment" padded='very' raised>
           <object className='hvr-grow' id='admin-logo' type='image/svg+xml' data='/images/admin_logo.svg'></object>
 
-          { this.props.hasError &&
-            <Message error>{ this.props.errorMessage }</Message> }
+          {
+            this.props.notification &&
+            <Message
+              success={this.props.notification.type === 'success'}
+              error={this.props.notification.type === 'error'}>
+              { this.props.notification.message }
+            </Message>
+           }
 
           <Form onSubmit={this.handleSubmit}>
             <Form.Field>
@@ -52,9 +52,8 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = (state) => ({
   isFetching: state.user.get('isFetching'),
-  isAuthenticated: state.user.get('isAuthenticated'),
-  hasError: state.user.get('error'),
-  errorMessage: state.user.get('message')
+  loggedIn: state.user.get('isAuthenticated'),
+  notification: state.user.get('notification')
 });
 
 const mapDispatchToProps = (dispatch) => ({

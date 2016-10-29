@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { createHistory } from 'history';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Router, hashHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-import Routes from './routes';
+import AdminRouter from './AdminRouter';
 import reducers from './reducers';
 
 import '../static/fonts/fonts.css'; // from static
@@ -24,18 +24,23 @@ const rootReducer = combineReducers({
     routing: routerReducer
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk)
+);
+
+
 
 const history = syncHistoryWithStore(hashHistory, store);
 
-
 class AppContainer extends Component {
+
   render() {
     return (
       <Provider store={store}>
-        <Router history={history}>
-          { Routes }
-        </Router>
+          <AdminRouter history={history} />
       </Provider>
     );
   }

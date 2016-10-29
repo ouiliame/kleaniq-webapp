@@ -1,8 +1,12 @@
+import { hashHistory } from 'react-router';
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOGOUT = 'LOGOUT'
 
 export function login_success(token) {
+  localStorage.token = token;
   return {
     type: LOGIN_SUCCESS,
     token
@@ -12,7 +16,10 @@ export function login_success(token) {
 export function login_failed(message) {
   return {
     type: LOGIN_FAILED,
-    message
+    notification: {
+      type: 'error',
+      message
+    }
   }
 }
 
@@ -24,7 +31,15 @@ export function login(email, password) {
         dispatch(login_failed(data.message));
       } else {
         dispatch(login_success(data.token));
+        hashHistory.replace('/');
       }
     });
+  }
+}
+
+export function logout() {
+  delete localStorage.token;
+  return {
+    type: LOGOUT
   }
 }

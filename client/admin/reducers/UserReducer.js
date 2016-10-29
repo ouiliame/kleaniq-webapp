@@ -1,12 +1,11 @@
 import Immutable from 'immutable';
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED } from '../actions/UserActions';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from '../actions/UserActions';
 
 const initialState = Immutable.Map({
   isFetching: false,
-  isAuthenticated: false,
-  token: null,
-  error: false,
-  message: ''
+  isAuthenticated: localStorage.token !== undefined,
+  token: localStorage.token !== undefined ? localStorage.token : null,
+  notification: null
 });
 
 export default function(state = initialState, action) {
@@ -14,21 +13,27 @@ export default function(state = initialState, action) {
     case LOGIN_REQUEST:
       return state
         .set('isFetching', true)
-        .set('error', false)
-        .set('message', '')
+        .set('notification', null)
     case LOGIN_SUCCESS:
       return state
         .set('isFetching', false)
         .set('isAuthenticated', true)
         .set('token', action.token)
-        .set('error', false)
-        .set('message', '')
+        .set('notification', null)
     case LOGIN_FAILED:
       return state
         .set('isFetching', false)
         .set('isAuthenticated', false)
-        .set('error', true)
-        .set('message', action.message)
+        .set('notification', action.notification)
+    case LOGOUT:
+      return state
+        .set('isFetching', false)
+        .set('isAuthenticated', null)
+        .set('token', null)
+        .set('notification', {
+          type: 'success',
+          message: 'You have been successfully logged out.'
+        })
     default:
       return state;
   }
