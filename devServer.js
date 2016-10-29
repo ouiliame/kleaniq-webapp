@@ -1,16 +1,23 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config');
+var webpackConfig = require('./webpack.config');
+var config = require('./config');
 
-new WebpackDevServer(webpack(config), {
+new WebpackDevServer(webpack(webpackConfig), {
   contentBase: 'public/',
-  publicPath: config.output.publicPath,
+  publicPath: webpackConfig.output.publicPath,
   hot: true,
-  historyApiFallback: true
-}).listen(8080, '0.0.0.0', function (err, result) {
+  historyApiFallback: true,
+  proxy: {
+      '/api/**': {
+        target: 'http://0.0.0.0:'+config.backendPort+'/',
+        secure: false
+      }
+  }
+}).listen(config.devPort, '0.0.0.0', function (err, result) {
   if (err) {
     return console.log(err);
   }
 
-  console.log('Listening at http://localhost:8080/');
+  console.log('Listening at http://0.0.0.0:'+config.devPort);
 });

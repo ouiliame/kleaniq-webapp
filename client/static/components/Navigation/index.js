@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import autobind from 'autobind-decorator';
 import _ from 'lodash';
+import { withProps } from 'recompose';
+
 import { Motion, spring } from 'react-motion';
 
 import {
@@ -18,101 +20,23 @@ import {
   Icon
 } from 'semantic-ui-react';
 
+import SignInButton from './SignInButton';
+import {
+  SolutionsMenu,
+  EnvironmentMenu,
+  CompanyMenu
+} from './menus';
+
 import './style.css';
 
 const mouseIsHovering = (selector) => $(selector+":hover").length != 0;
 
-class SolutionsMenu extends Component {
-  render() {
-    return (
-      <div className="solutions" {...this.props}>
-        <Header
-          as='h3'
-          image='http://semantic-ui.com/images/icons/school.png'
-          content='For Restaurant Managers'
-          subheader='Manage your account settings and set email preferences'
-          />
-
-        <Header
-          as='h3'
-          image='http://semantic-ui.com/images/icons/school.png'
-          content='For Grease Service Providers'
-          subheader='Manage your account settings and set email preferences'
-          />
-
-        <Header
-          as='h3'
-          image='http://semantic-ui.com/images/icons/school.png'
-          content='For Biofuel Refiners and Distributors'
-          subheader='Manage your account settings and set email preferences'
-          />
-      </div>
-    )
-  }
-};
-
-class EnvironmentMenu extends Component {
-  render() {
-    return (
-      <div className="environment" {...this.props}>
-        <h4>FOR RESTAURANTS</h4>
-        <h4>FOR PROVIDERS</h4>
-      </div>
-    )
-  }
-};
-
-
-class CompanyMenu extends Component {
-  render() {
-    return (
-      <div className="company" {...this.props}>
-        <List>
-          <List.Item>
-            <Image avatar src='http://semantic-ui.com/images/avatar2/small/rachel.png' />
-            <List.Content>
-              <List.Header as='a'>Rachel</List.Header>
-              <List.Description>Last seen watching <a><b>Arrested Development</b></a> just now.</List.Description>
-            </List.Content>
-          </List.Item>
-          <List.Item>
-            <Image avatar src='http://semantic-ui.com/images/avatar2/small/lindsay.png' />
-            <List.Content>
-              <List.Header as='a'>Lindsay</List.Header>
-              <List.Description>Last seen watching <a><b>Bob's Burgers</b></a> 10 hours ago.</List.Description>
-            </List.Content>
-          </List.Item>
-          <List.Item>
-            <Image avatar src='http://semantic-ui.com/images/avatar2/small/matthew.png' />
-            <List.Content>
-              <List.Header as='a'>Matthew</List.Header>
-              <List.Description>Last seen watching <a><b>The Godfather Part 2</b></a> yesterday.</List.Description>
-            </List.Content>
-          </List.Item>
-          <List.Item>
-            <Image avatar src='http://semantic-ui.com/images/avatar/small/jenny.jpg' />
-            <List.Content>
-              <List.Header as='a'>Jenny Hess</List.Header>
-              <List.Description>Last seen watching <a><b>Twin Peaks</b></a> 3 days ago.</List.Description>
-            </List.Content>
-          </List.Item>
-          <List.Item>
-            <Image avatar src='http://semantic-ui.com/images/avatar/small/veronika.jpg' />
-            <List.Content>
-              <List.Header as='a'>Veronika Ossi</List.Header>
-              <List.Description>Has not watched anything recently</List.Description>
-            </List.Content>
-          </List.Item>
-        </List>
-      </div>
-    )
-  }
-};
-
+@autobind
 class Navigation extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       isOpen: false,
       selectedItem: '',
@@ -123,10 +47,9 @@ class Navigation extends Component {
     }
   }
 
-  @autobind
   _enter(selectedItem) {
 
-    $("#kiq-menu-content div").removeClass('active');
+    $("#kiq-menu-content > div").removeClass('active');
 
     let {width, height} = this._getMenuDimensions(selectedItem);
     let {top, left} = this._getMenuItemCoords(selectedItem);
@@ -147,7 +70,6 @@ class Navigation extends Component {
 
   }
 
-  @autobind
   _leave() {
     setTimeout(() => {
       // close the dropdown IF
@@ -156,28 +78,12 @@ class Navigation extends Component {
         this.setState({
           isOpen: false
         });
-        $("#kiq-menu-content div").removeClass('active');
+
+        $("#kiq-menu-content > div").removeClass('active');
       }
-    }, 200);
+    }, 300);
   }
 
-
-  @autobind
-  _getMenu(selectedItem) {
-    switch (selectedItem) {
-      case 'solutions':
-      return <SolutionsMenu onMouseLeave={this._leave} />
-      case 'environment':
-      return <EnvironmentMenu onMouseLeave={this._leave} />
-      case 'company':
-      return <CompanyMenu onMouseLeave={this._leave} />
-      default:
-      return null;
-    }
-  }
-
-
-  @autobind
   _getMenuDimensions(selectedItem) {
     let content = $("#kiq-menu-content ." + selectedItem);
     let [height, width] = [content.innerHeight(), content.innerWidth()];
@@ -186,7 +92,6 @@ class Navigation extends Component {
 
 
   // NOTE: set offset from menu item
-  @autobind
   _getMenuItemCoords(selectedItem) {
     let item = $("#kiq-menu-item-" + selectedItem);
     let content = $("#kiq-menu-content ." + selectedItem);
@@ -272,57 +177,9 @@ class Navigation extends Component {
             <div id="kiq-menu-right">
               <ul>
                 <li>Help</li>
-                <Modal dimmer='blurring' trigger={<li><Button>Sign In</Button></li>}>
-                  <Grid columns={2}>
-                    <Grid.Column>
-                      <Segment basic padded='very'>
-                        <Form>
-                          <Form.Field>
-                            <label>User ID</label>
-                            <Input icon='users' iconPosition='left' placeholder='User ID' />
-                          </Form.Field>
-                          <Form.Field>
-                            <label>Password</label>
-                            <Input icon='lock' iconPosition='left' placeholder='Password' />
-                          </Form.Field>
-                          <Button primary fluid type='submit'>Login</Button><br/>
-                          <Button fluid>I can't log in</Button>
-                        </Form>
-                      </Segment>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <div style={{paddingTop: 25, paddingBottom: 25, paddingRight:25}}>
-                        <Header as='h2'>
-                          <Header.Content>
-                            No account? Sign up today.
-                            <Header.Subheader>
-                              Join the world's most advanced kitchen network
-                            </Header.Subheader>
-                          </Header.Content>
-                        </Header>
-                        <Form>
-                          <Form.Field>
-                            <label>Your Name</label>
-                            <Input icon='user' iconPosition='left' placeholder='Your Name' />
-                          </Form.Field>
-                          <Form.Field>
-                            <label>Phone Number</label>
-                            <Input icon='call' iconPosition='left' placeholder='Phone Number' />
-                          </Form.Field>
-                          <Form.Field>
-                            <label>Establishment Address</label>
-                            <Input icon='marker' iconPosition='left' placeholder='Establishment' />
-                          </Form.Field>
-                          <Button primary fluid type='submit'>Request a demo</Button><br/>
-                        </Form>
-                      </div>
-                    </Grid.Column>
-                  </Grid>
-                </Modal>
+                <SignInButton />
               </ul>
             </div>
-
-
           </Container>
         </div>
 

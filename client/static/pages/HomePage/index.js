@@ -11,27 +11,28 @@ export default class HomePage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.trianglify = Trianglify;
     this.state = {
       pattern: null
     }
   }
 
   componentDidMount() {
+    $(window).resize(() => this.updateTriangles());
     this.updateTriangles();
   }
 
-  componentWillUnmount() {
-  }
-
   updateTriangles() {
-    this.state.pattern = Trianglify({
-      width: window.innerWidth,
-      height: window.innerHeight,
-      cell_size: 167,
-      x_colors: 'YlGnBu'
+
+    this.pattern = this.trianglify({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        cell_size: 167,
+        x_colors: 'YlGnBu'
     });
 
-    $("#kiq-site-triangles").append(this.state.pattern.canvas());
+    this.pattern.canvas($("#kiq-site-triangles")[0]);
   }
 
   render() {
@@ -41,12 +42,12 @@ export default class HomePage extends Component {
           <Navigation/>
         </div>
         <div id="kiq-site-content">
-          <div id="kiq-site-triangles"></div>
+          <canvas id="kiq-site-triangles"></canvas>
           <Container id="kiq-site-container">
           </Container>
         </div>
-        <div id="kiq-site-footer" >
-          &copy; UrbanX Renewables Group 2016
+        <div id="kiq-site-footer">
+          &copy; Urban<a style={{color: 'black'}} href="admin/">X</a> Renewables Group 2016
         </div>
       </div>
     );

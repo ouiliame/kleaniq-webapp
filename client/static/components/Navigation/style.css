@@ -67,34 +67,20 @@
 
 #kiq-menu-content {
 
-  @each $item in (solutions, environment, company) {
-    .$(item) {
-      position: absolute;
-      left: 0;
-      top: 0;
-      padding: 27px 27px 30px 27px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s, visibility 0.2s;
+  & > div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 27px 27px 30px 27px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
 
-      &.active {
-        opacity: 1;
-        visibility: visible;
-        z-index: 2;
-      }
+    &.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
     }
-  }
-
-  .solutions {
-    max-width: 550px;
-  }
-
-  .environment {
-    width: 647px;
-  }
-
-  .company {
-    max-width: 500px;
   }
 }
 
