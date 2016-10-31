@@ -3,7 +3,7 @@ import { List, Image } from 'semantic-ui-react';
 
 const style = {
   width: 500
-}
+};
 
 export default class CompanyMenu extends Component {
   render() {
@@ -47,6 +47,6 @@ export default class CompanyMenu extends Component {
           </List.Item>
         </List>
       </div>
-    )
+    );
   }
-};
+}

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 
 const style = {
   width: 647
-}
+};
 
 export default class EnvironmentMenu extends Component {
   render() {
@@ -12,6 +11,6 @@ export default class EnvironmentMenu extends Component {
         <h4>FOR RESTAURANTS</h4>
         <h4>FOR PROVIDERS</h4>
       </div>
-    )
+    );
   }
-};
+}

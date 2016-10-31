@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Navigation } from 'components';
-import { Container, Segment, Header} from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import './style.css';
 
 import Trianglify from 'trianglify';
-
+import $ from 'zepto-webpack';
 
 // TODO CHANGE TRIANGES ON RESIZE
 export default class HomePage extends Component {
@@ -15,7 +15,7 @@ export default class HomePage extends Component {
     this.trianglify = Trianglify;
     this.state = {
       pattern: null
-    }
+    };
   }
 
   componentDidMount() {
@@ -26,13 +26,13 @@ export default class HomePage extends Component {
   updateTriangles() {
 
     this.pattern = this.trianglify({
-        width: window.innerWidth,
-        height: window.innerHeight,
-        cell_size: 167,
-        x_colors: 'YlGnBu'
+      width: window.innerWidth,
+      height: window.innerHeight,
+      cell_size: 167,
+      x_colors: 'YlGnBu'
     });
 
-    this.pattern.canvas($("#kiq-site-triangles")[0]);
+    this.pattern.canvas($('#kiq-site-triangles')[0]);
   }
 
   render() {

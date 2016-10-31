@@ -1,49 +1,38 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import { createHistory } from 'history';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Router, hashHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 
-import AdminRouter from './AdminRouter';
-import reducers from './reducers';
+import routes from './routes';
+import reducers from './state';
 
 import '../static/fonts/fonts.css'; // from static
-import 'kleaniq-semantic-ui-css';
-import 'kleaniq-semantic-ui-js';
+import 'kleaniq-semantic-ui-css'; // semantic ui css + theme
 
-// ENABLE HMR
-if (module.hot) {
-  module.hot.accept();
-}
+const baseHistory = hashHistory;
 
 const rootReducer = combineReducers({
-    ...reducers,
-    routing: routerReducer
+  ...reducers,
+  routing: routerReducer
 });
 
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk)
+  composeEnhancers(
+    applyMiddleware(thunk, routerMiddleware(baseHistory))
+  )
 );
 
+const history = syncHistoryWithStore(baseHistory, store);
 
-
-const history = syncHistoryWithStore(hashHistory, store);
-
-class AppContainer extends Component {
-
-  render() {
-    return (
-      <Provider store={store}>
-          <AdminRouter history={history} />
-      </Provider>
-    );
-  }
-}
-
-render(<AppContainer/>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history}>
+      { routes }
+    </Router>
+  </Provider>
+  , document.getElementById('root'));

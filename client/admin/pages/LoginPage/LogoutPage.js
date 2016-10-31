@@ -1,17 +1,21 @@
-import React, { PropTypes } from 'react'
-import { Segment, Message, Form, Button, Checkbox, Icon, Input } from 'semantic-ui-react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/UserActions';
-import { hashHistory } from 'react-router';
+import { replace } from 'react-router-redux';
+
+import { Login } from 'state/auth/actions';
 
 class LogoutPage extends React.Component {
+
+  componentWillMount() {
+    this.props.logout();
+  }
 
   render() {
     return(
       <div>
         You have been logged out.
       </div>
-    )
+    );
   }
 }
 
@@ -20,7 +24,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(logout())
+  logout: () => {
+    dispatch(Login.logout());
+    dispatch(replace('/'));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutPage);

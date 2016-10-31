@@ -6,8 +6,9 @@ var config = require('./config');
 new WebpackDevServer(webpack(webpackConfig), {
   contentBase: 'public/',
   publicPath: webpackConfig.output.publicPath,
-  hot: true,
   historyApiFallback: true,
+  inline: true,
+  hot: true,
   proxy: {
       '/api/**': {
         target: 'http://0.0.0.0:'+config.backendPort+'/',

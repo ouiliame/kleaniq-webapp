@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
 import autobind from 'autobind-decorator';
-import _ from 'lodash';
-import { withProps } from 'recompose';
 
 import { Motion, spring } from 'react-motion';
 
 import {
-  Container,
-  Button,
-  Header,
-  Image,
-  Item,
-  List,
-  Modal,
-  Grid,
-  Form,
-  Input,
-  Segment,
-  Icon
+  Container
 } from 'semantic-ui-react';
 
 import SignInButton from './SignInButton';
@@ -28,8 +15,9 @@ import {
 } from './menus';
 
 import './style.css';
+import $ from 'zepto-webpack';
 
-const mouseIsHovering = (selector) => $(selector+":hover").length != 0;
+const mouseIsHovering = (selector) => $(selector+':hover').length != 0;
 
 @autobind
 class Navigation extends Component {
@@ -44,12 +32,12 @@ class Navigation extends Component {
       bgHeight: 0,
       bgX: 0,
       bgY: 0
-    }
+    };
   }
 
   _enter(selectedItem) {
 
-    $("#kiq-menu-content > div").removeClass('active');
+    $('#kiq-menu-content > div').removeClass('active');
 
     let {width, height} = this._getMenuDimensions(selectedItem);
     let {top, left} = this._getMenuItemCoords(selectedItem);
@@ -63,7 +51,7 @@ class Navigation extends Component {
       bgY: top
     });
 
-    let content = $("#kiq-menu-content ." + selectedItem);
+    let content = $('#kiq-menu-content .' + selectedItem);
     content.addClass('active').css({
       transform: 'translate3d(' + left + 'px, ' + top + 'px, 0px)'
     });
@@ -74,18 +62,18 @@ class Navigation extends Component {
     setTimeout(() => {
       // close the dropdown IF
       //      mouse aint over menu item      and       mouse aint over the dropdown
-      if (!mouseIsHovering("#kiq-menu-center ul") && !mouseIsHovering("#kiq-menu-content ."+this.state.selectedItem)) {
+      if (!mouseIsHovering('#kiq-menu-center ul') && !mouseIsHovering('#kiq-menu-content .'+this.state.selectedItem)) {
         this.setState({
           isOpen: false
         });
 
-        $("#kiq-menu-content > div").removeClass('active');
+        $('#kiq-menu-content > div').removeClass('active');
       }
     }, 300);
   }
 
   _getMenuDimensions(selectedItem) {
-    let content = $("#kiq-menu-content ." + selectedItem);
+    let content = $('#kiq-menu-content .' + selectedItem);
     let [height, width] = [content.innerHeight(), content.innerWidth()];
     return { width, height };
   }
@@ -93,8 +81,8 @@ class Navigation extends Component {
 
   // NOTE: set offset from menu item
   _getMenuItemCoords(selectedItem) {
-    let item = $("#kiq-menu-item-" + selectedItem);
-    let content = $("#kiq-menu-content ." + selectedItem);
+    let item = $('#kiq-menu-item-' + selectedItem);
+    let content = $('#kiq-menu-content .' + selectedItem);
     return {
       top: item.offset().top + 40,
       left: item.offset().left + item.innerWidth()/2 - content.innerWidth()/2
@@ -105,41 +93,61 @@ class Navigation extends Component {
     const { X, Y, width, height, opacity } = style;
     return (
       <div id="kiq-menu-dropdown-bg" style={{
-          transform: 'translate3d(' + X + 'px, '+ Y +'px, 0px)',
-          width,
-          height,
-          opacity
-        }}></div>
-      );
+        transform: 'translate3d(' + X + 'px, '+ Y +'px, 0px)',
+        width,
+        height,
+        opacity
+      }}></div>
+    );
+  }
+
+  render() {
+
+    let bgStyle;
+
+    if (this.state.isOpen) {
+
+      let {width, height} = this._getMenuDimensions(this.state.selectedItem);
+      let {top, left} = this._getMenuItemCoords(this.state.selectedItem);
+
+      bgStyle = {
+        X: spring(left),
+        Y: spring(top),
+        width: spring(width),
+        height: spring(height),
+        opacity: spring(1)
+      };
+    } else {
+      bgStyle = {
+        X: spring(this.state.bgX),
+        Y: spring(this.state.bgY),
+        width: spring(this.state.bgWidth),
+        height: spring(this.state.bgHeight),
+        opacity: spring(0)
+      };
     }
 
-    render() {
+/* until further notice.
+    const centerMenu = (
+      <ul>
+        <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
+          onMouseLeave={this._leave}>
+          Solutions
+        </li>
+        <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
+          onMouseLeave={this._leave}>
+          Environment
+        </li>
+        <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
+          onMouseLeave={this._leave}>
+          Company
+        </li>
+      </ul>
+    );
 
-      let bgStyle;
+*/
 
-      if (this.state.isOpen) {
-
-        let {width, height} = this._getMenuDimensions(this.state.selectedItem);
-        let {top, left} = this._getMenuItemCoords(this.state.selectedItem);
-
-        bgStyle = {
-          X: spring(left),
-          Y: spring(top),
-          width: spring(width),
-          height: spring(height),
-          opacity: spring(1)
-        }
-      } else {
-        bgStyle = {
-          X: spring(this.state.bgX),
-          Y: spring(this.state.bgY),
-          width: spring(this.state.bgWidth),
-          height: spring(this.state.bgHeight),
-          opacity: spring(0)
-        }
-      }
-
-      return (
+    return (
         <div>
           <Motion style={bgStyle}>
             { (style) => this._makeBackground(style) }
@@ -152,26 +160,11 @@ class Navigation extends Component {
           </div>
 
           <Container id='kiq-menu'>
-
             <div id="kiq-menu-left">
               <object className='hvr-grow' id='kiq-menu-logo' type='image/svg+xml' data='/images/logo.svg'></object>
             </div>
 
             <div id="kiq-menu-center">
-              <ul>
-                <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
-                  onMouseLeave={this._leave}>
-                  Solutions
-                </li>
-                <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
-                  onMouseLeave={this._leave}>
-                  Environment
-                </li>
-                <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
-                  onMouseLeave={this._leave}>
-                  Company
-                </li>
-              </ul>
             </div>
 
             <div id="kiq-menu-right">
@@ -183,8 +176,8 @@ class Navigation extends Component {
           </Container>
         </div>
 
-      );
-    }
-  };
+    );
+  }
+  }
 
-  export default Navigation;
+export default Navigation;

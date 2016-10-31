@@ -3,7 +3,7 @@ import { Header } from 'semantic-ui-react';
 
 const style = {
   width: 550
-}
+};
 
 export default class SolutionsMenu extends Component {
   render() {
@@ -30,6 +30,6 @@ export default class SolutionsMenu extends Component {
           subheader='Manage your account settings and set email preferences'
           />
       </div>
-    )
+    );
   }
-};
+}

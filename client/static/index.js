@@ -11,8 +11,6 @@ import HomePage from './pages/HomePage';
 
 import './fonts/fonts.css';
 import 'kleaniq-semantic-ui-css';
-import 'kleaniq-semantic-ui-js';
-
 
 const history = browserHistory;
 

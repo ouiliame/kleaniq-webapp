@@ -12,7 +12,7 @@ function makeEntry(entries) {
 }
 
 var config = {
-  devtool: 'eval',
+  devtool: 'cheap-eval-source-map',
 
   entry: {
     app: makeEntry('./client/app/index.js'),
@@ -78,11 +78,11 @@ var config = {
   resolve: {
     root: [
       path.resolve('./client/lib'),
-      path.resolve('./client/static')
+      path.resolve('./client/static'),
+      path.resolve('./client/admin')
     ],
     alias: {
-      'kleaniq-semantic-ui-css': path.resolve('./semantic/dist/semantic.min.css'),
-      'kleaniq-semantic-ui-js': path.resolve('./semantic/dist/semantic.min.js'),
+      'kleaniq-semantic-ui-css': path.resolve('./semantic/dist/semantic.css')
     }
   },
 

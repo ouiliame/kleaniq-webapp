@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react'
+import React from 'react';
 import Trianglify from 'trianglify';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
-
+import $ from 'zepto-webpack';
 import './App.css';
+
 
 class App extends React.Component {
 
@@ -13,7 +13,7 @@ class App extends React.Component {
     this.trianglify = Trianglify;
     this.state = {
       pattern: null
-    }
+    };
   }
 
   componentDidMount() {
@@ -23,13 +23,13 @@ class App extends React.Component {
 
   updateTriangles() {
     this.pattern = this.trianglify({
-        width: window.innerWidth,
-        height: window.innerHeight,
-        cell_size: 167,
-        x_colors: ['#a1a1a1', '#000000', '#a1a1a1']
+      width: window.innerWidth,
+      height: window.innerHeight,
+      cell_size: 167,
+      x_colors: ['#a1a1a1', '#000000', '#a1a1a1']
     });
 
-    this.pattern.canvas($("#kiq-triangles")[0]);
+    this.pattern.canvas($('#kiq-triangles')[0]);
   }
 
   render () {
@@ -38,12 +38,12 @@ class App extends React.Component {
         <canvas id="kiq-triangles"></canvas>
         { this.props.children }
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-  loggedIn: state.user.get('isAuthenticated')
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(App);

@@ -1,8 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import ReactMapboxGl, { Layer, Feature, Marker, ZoomControl } from 'react-mapbox-gl';
+import ReactMapboxGl, { ZoomControl } from 'react-mapbox-gl';
 import { Segment, Header } from 'semantic-ui-react';
 import './style.css';
 
@@ -19,7 +18,7 @@ class MapPage extends React.Component {
     this.state = {
       center: [-117.876434, 33.876615],
       zoom: [9]
-    }
+    };
   }
 
   render () {
@@ -30,10 +29,10 @@ class MapPage extends React.Component {
           accessToken='pk.eyJ1Ijoid2NoZW4yOTgiLCJhIjoiY2ltbmg0amkxMDBqZHRwbHZqYnAyZzZ4YSJ9.9XPZlD9SVjOEAOmYTfczGg'
           containerStyle={containerStyle}
           center={this.state.center}
-          zoom={this.state.zoom}
-          interactive={false}>
+          zoom={this.state.zoom}>
           <ZoomControl />
         </ReactMapboxGl>
+
         <div id="map-overlay">
           <Segment padded='very'>
             <Header as='h1'>KleanIQ Admin Under Maintenance</Header>
@@ -42,7 +41,7 @@ class MapPage extends React.Component {
           </Segment>
         </div>
       </div>
-    )
+    );
   }
 }
 
