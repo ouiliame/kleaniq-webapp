@@ -9,9 +9,6 @@ import { Router, Route, browserHistory } from 'react-router';
 
 import HomePage from './pages/HomePage';
 
-import './fonts/fonts.css';
-import 'kleaniq-semantic-ui-css';
-
 const history = browserHistory;
 
 class StaticSiteRouter extends Component {

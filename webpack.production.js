@@ -1,9 +1,9 @@
 var webpack = require('webpack');
 var path = require('path');
-var HtmlWebpackPlugin  = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval',
 
   entry: {
     app: './client/app/index.js',
@@ -26,22 +26,19 @@ var config = {
         exclude: [/node_modules/, /semantic/]
       },
 
-      {
-        test: /\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader'
-        ],
-        include: [/semantic/]
-      },
+/*
 
       {
         test: /\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ],
+        loaders: ['style-loader', 'css-loader'],
+        include: [/semantic/]
+      },
+
+*/
+
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader', 'postcss-loader'],
         exclude: [/semantic/]
       },
 
@@ -70,10 +67,12 @@ var config = {
     root: [
       path.resolve('./client/lib'),
       path.resolve('./client/static'),
-      path.resolve('./client/admin')
+      path.resolve('./client/admin'),
+      path.resolve('./client/app'),
+      path.resolve('./client/vendor')
     ],
     alias: {
-      'kleaniq-semantic-ui-css': path.resolve('./semantic/dist/semantic.min.css')
+      'kleaniq-semantic-ui-css': path.resolve('./semantic/dist/semantic.css')
     }
   },
 
@@ -111,14 +110,14 @@ var config = {
       filename: 'app/index.html',
       chunks: ['app'],
       inject: true,
-      template: 'client/app/index.template.html'
+      template: 'client/index.production.html'
     }),
 
     new HtmlWebpackPlugin({
       filename: 'admin/index.html',
       chunks: ['commons', 'admin'],
       inject: true,
-      template: 'client/admin/index.template.html'
+      template: 'client/index.production.html'
     }),
 
     // generate static page HTML (public/index.html)
@@ -127,7 +126,7 @@ var config = {
     new HtmlWebpackPlugin({
       chunks: ['commons', 'static'],
       inject: true,
-      template: 'client/static/index.template.html'
+      template: 'client/index.production.html'
     })
   ]
 };

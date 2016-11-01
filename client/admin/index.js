@@ -9,9 +9,6 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-rou
 import routes from './routes';
 import reducers from './state';
 
-import '../static/fonts/fonts.css'; // from static
-import 'kleaniq-semantic-ui-css'; // semantic ui css + theme
-
 const baseHistory = hashHistory;
 
 const rootReducer = combineReducers({

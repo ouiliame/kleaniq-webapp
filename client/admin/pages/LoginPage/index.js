@@ -41,6 +41,7 @@ class LoginPage extends React.Component {
         user
       });
     }
+
   }
 
   handleLogin(e, credentials) {

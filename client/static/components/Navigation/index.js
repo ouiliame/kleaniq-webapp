@@ -127,25 +127,25 @@ class Navigation extends Component {
       };
     }
 
-/* until further notice.
-    const centerMenu = (
+      /* until further notice.
+      const centerMenu = (
       <ul>
-        <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
-          onMouseLeave={this._leave}>
-          Solutions
-        </li>
-        <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
-          onMouseLeave={this._leave}>
-          Environment
-        </li>
-        <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
-          onMouseLeave={this._leave}>
-          Company
-        </li>
+      <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
+      onMouseLeave={this._leave}>
+      Solutions
+      </li>
+      <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
+      onMouseLeave={this._leave}>
+      Environment
+      </li>
+      <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
+      onMouseLeave={this._leave}>
+      Company
+      </li>
       </ul>
-    );
+      );
 
-*/
+      */
 
     return (
         <div>
@@ -178,6 +178,6 @@ class Navigation extends Component {
 
     );
   }
-  }
+}
 
 export default Navigation;
