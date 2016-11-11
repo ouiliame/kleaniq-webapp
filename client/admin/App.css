@@ -1,18 +1,8 @@
-#root {
-  width: 100%;
-  height: 100%;
-}
-
-#kiq-admin {
-  width: 100%;
-  height: 100%;
-}
-
-#kiq-triangles {
+#admin-loading {
   position: absolute;
-  z-index: -100;
-  top: 0;
-  left: 0;
+  display: flex;
   width: 100%;
   height: 100%;
+  justify-content: center;
+  align-items: center;
 }

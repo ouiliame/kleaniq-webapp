@@ -14,7 +14,7 @@ const schema = mongoose.Schema({
     index: { unique: true }
   },
 
-  password_hash: { type: String, required: true },
+  passwordHash: { type: String, required: true },
 
   affiliation: { type: String, required: true }
 });

@@ -3,8 +3,11 @@ import { replace } from 'react-router-redux';
 import autobind from 'autobind-decorator';
 import { Segment, Message, Header, Form, Button, Icon, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Login, Token } from 'state/auth/actions';
+import { Login, TokenLogin } from 'state/auth/actions';
+import { RingLoader } from 'halogen';
 import './style.css';
+
+// TODO: if user allows lock, let him
 
 @autobind
 class LoginPage extends React.Component {
@@ -18,7 +21,7 @@ class LoginPage extends React.Component {
 
   componentDidMount() {
     if (!this.props.user && localStorage.token) {
-      this.props.validateToken(localStorage.token);
+      this.props.tokenLogin(localStorage.token);
     }
   }
 
@@ -29,7 +32,7 @@ class LoginPage extends React.Component {
       this.props.redirectTo(nextProps.redirectPath);
     }
 
-    if (tokenStatus === 'failed') {
+    if (tokenStatus === 'error') {
       this.props.clearToken();
       this.setState({
         user: null
@@ -84,21 +87,23 @@ class LoginPage extends React.Component {
       </Form>
     );
 
-    const TokenFetching = (
-      <Header as='h1' icon>
-        <Icon loading name='circle notched' />
-        Restoring session...
-      </Header>
+    const LoadingMessage = (message) => (
+      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <RingLoader color='#1b1b1b' className='ui icon' />
+        <Header as='h1'>
+          { message }
+        </Header>
+      </div>
     );
 
     let body;
-    if (tokenStatus === 'request') {
-      body = TokenFetching;
+    if (tokenStatus === 'request' || loginStatus === 'request') {
+      body = LoadingMessage('Please wait...');
     } else if (this.state.user && tokenStatus === 'success') {
       body = (
         <div>
           <Header as='h3'>
-            <Icon name='lock' />
+            <Icon name='user' />
             <Header.Content>
               Welcome back, {this.state.user.name.first} {this.state.user.name.last}
               <Header.Subheader>
@@ -133,8 +138,11 @@ class LoginPage extends React.Component {
 
     return (
       <div id="login-wrapper">
+
+        { this.props.triangles }
+
         <Segment id="login-segment" padded='very' raised>
-          <object className='hvr-grow' id='admin-logo' type='image/svg+xml' data='/images/admin_logo.svg'></object>
+          <object id='admin-logo' type='image/svg+xml' data='/images/admin_logo.svg'></object>
 
           {
             notification &&
@@ -146,8 +154,6 @@ class LoginPage extends React.Component {
           }
 
           { body }
-
-          <a id="back-link" href="/">Return to KleanIQ for Restaurants</a>
         </Segment>
       </div>
     );
@@ -164,8 +170,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   login: (credentials) => dispatch(Login.login(credentials)),
-  validateToken: (token) => dispatch(Token.validate({token})),
-  clearToken: () => dispatch(Token.clear()),
+  tokenLogin: (token) => dispatch(TokenLogin.login({token})),
+  clearToken: () => dispatch(TokenLogin.clear()),
   redirectTo: (location) => dispatch(replace(location))
 });
 

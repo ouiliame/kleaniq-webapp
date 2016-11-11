@@ -1,9 +1,8 @@
 import { getThunkActionsCreator } from 'utils';
-import { hashHistory } from 'react-router';
 
 // TODO: redirect to routes other than '/' from Login and TokenLogin on success
 
-const thunkActionsFor = getThunkActionsCreator('/api/admin/')
+const thunkActionsFor = getThunkActionsCreator('/api/admin/');
 // LOGIN
 
 const Login = thunkActionsFor({
@@ -23,36 +22,32 @@ Login.logout = () => {
   delete localStorage.token;
   return {
     type: Login.LOGOUT
-  }
+  };
 };
 
-// TOKEN
+// TOKEN LOGIN
 
-const Token = thunkActionsFor({
-  actionPrefix: 'TOKEN',
-  endpoint: 'validate_token',
+const TokenLogin = thunkActionsFor({
+  actionPrefix: 'TOKEN_LOGIN',
+  endpoint: 'token_login',
   onSuccess: (type, user) => {
     localStorage.token = user.token;
     return { type, user };
   },
-  onFailed: (type, error) => {
-    // TODO: notify
-    return { type, error }
-  },
   dataKeyName: 'user',
-  requestCreatorKey: 'validate'
+  requestCreatorKey: 'login'
 });
 
-Token.CLEAR = 'TOKEN_CLEAR';
+TokenLogin.CLEAR = 'TOKEN_CLEAR';
 
-Token.clear = () => {
+TokenLogin.clear = () => {
   delete localStorage.token;
   return {
-    type: Token.CLEAR
-  }
-}
+    type: TokenLogin.CLEAR
+  };
+};
 
 export {
   Login,
-  Token
+  TokenLogin
 };

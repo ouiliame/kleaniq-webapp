@@ -1,49 +1,38 @@
 import React from 'react';
-import Trianglify from 'trianglify';
+import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
-import $ from 'zepto-webpack';
+import NavButton from 'components/NavButton';
+import NavMenu from 'components/NavMenu';
+import { RingLoader } from 'halogen';
 import './App.css';
 
+// admin pages have a menu !
 
+
+@autobind
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.trianglify = Trianglify;
-    this.state = {
-      pattern: null
-    };
-  }
-
-  componentDidMount() {
-    $(window).resize(() => this.updateTriangles());
-    this.updateTriangles();
-  }
-
-  updateTriangles() {
-    this.pattern = this.trianglify({
-      width: window.innerWidth,
-      height: window.innerHeight,
-      cell_size: 167,
-      x_colors: ['#a1a1a1', '#000000', '#a1a1a1']
-    });
-
-    this.pattern.canvas($('#kiq-triangles')[0]);
-  }
-
-  render () {
+  render() {
     return (
-      <div id="kiq-admin">
-        <canvas id="kiq-triangles"></canvas>
-        { this.props.children }
+      <div id="admin-wrapper">
+        <NavButton/>
+        <NavMenu pageWrapId="admin-app" outerContainerId="admin-wrapper"/>
+        <div id="admin-loading">
+          <RingLoader color='#2b2b2b' size="200px"/>
+        </div>
+        <div id="admin-app">
+          { this.props.children }
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user
+  user: state.user
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
-
+import { action as toggleMenu } from 'react-burger-menu';
 import { Login } from 'state/auth/actions';
 
 class LogoutPage extends React.Component {

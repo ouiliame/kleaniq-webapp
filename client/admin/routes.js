@@ -1,13 +1,15 @@
 import React from 'react';
-import { Route, IndexRedirect } from 'react-router';
+import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { routerActions } from 'react-router-redux';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 
-import App from './App';
+import triangles from 'triangles';
 import LoginPage from 'pages/LoginPage';
 import LogoutPage from 'pages/LoginPage/LogoutPage';
-import AdminPage from 'pages/AdminPage';
-import MapPage from 'pages/MapPage';
+import App from './App';
+
+// APPS
+import AdminMap from 'apps/AdminMap';
 
 const loggedIn = UserAuthWrapper({
   authSelector: state => state.user,
@@ -16,12 +18,13 @@ const loggedIn = UserAuthWrapper({
 });
 
 const routes = (
-  <Route path="/" component={App}>
-    <IndexRedirect to="admin" />
-    <Route path="login" component={LoginPage} />
+  <Route path="/">
+    <IndexRedirect to="app" />
+    <Route path="login" component={triangles(LoginPage)} />
     <Route path="logout" component={LogoutPage} />
-    <Route path="admin" component={loggedIn(AdminPage)}>
-      <Route path="map" component={MapPage}/>
+    <Route path="app" component={loggedIn(App)}>
+      <IndexRedirect to="AdminMap" />
+      <Route path="AdminMap" component={AdminMap}/>
     </Route>
   </Route>
 );

@@ -4,7 +4,7 @@ import { Container } from 'semantic-ui-react';
 import './style.css';
 
 import Trianglify from 'trianglify';
-import $ from 'zepto-webpack';
+import $ from 'jquery';
 
 // TODO CHANGE TRIANGES ON RESIZE
 export default class HomePage extends Component {

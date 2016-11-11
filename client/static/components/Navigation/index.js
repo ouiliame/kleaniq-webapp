@@ -15,7 +15,7 @@ import {
 } from './menus';
 
 import './style.css';
-import $ from 'zepto-webpack';
+import $ from 'jquery';
 
 const mouseIsHovering = (selector) => $(selector+':hover').length != 0;
 
@@ -130,18 +130,18 @@ class Navigation extends Component {
       /* until further notice.
       const centerMenu = (
       <ul>
-      <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
-      onMouseLeave={this._leave}>
-      Solutions
-      </li>
-      <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
-      onMouseLeave={this._leave}>
-      Environment
-      </li>
-      <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
-      onMouseLeave={this._leave}>
-      Company
-      </li>
+        <li id="kiq-menu-item-solutions" onMouseEnter={() => this._enter('solutions')}
+        onMouseLeave={this._leave}>
+        Solutions
+        </li>
+        <li id="kiq-menu-item-environment" onMouseEnter={() => this._enter('environment')}
+        onMouseLeave={this._leave}>
+        Environment
+        </li>
+        <li id="kiq-menu-item-company" onMouseEnter={() => this._enter('company')}
+        onMouseLeave={this._leave}>
+        Company
+        </li>
       </ul>
       );
 

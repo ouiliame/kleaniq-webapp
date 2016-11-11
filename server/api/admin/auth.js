@@ -30,18 +30,21 @@ function makeError(message) {
   };
 }
 
-const genericErrorResponse = () => makeError(Errors.Generic);
+const genericErrorResponse = (res) => (err) => {
+  console.log(err);
+  return res.json(makeError(Errors.Generic));
+};
 
 function findAdminUser(email, password = null) {
   if (password !== null) {
     return AdminUser.findOne({
       email: email.toLowerCase(),
-      password_hash: CryptoJS.SHA256(password).toString()
-    }, 'name affiliation email').exec();
+      passwordHash: CryptoJS.SHA256(password, secretKey).toString()
+    }).exec();
   } else {
     return AdminUser.findOne({
       email: email.toLowerCase()
-    }, 'name affiliation email').exec();
+    }).exec();
   }
 }
 
@@ -53,10 +56,13 @@ function decrypt(ciphertext, key) {
   return CryptoJS.AES.decrypt(ciphertext, key).toString(CryptoJS.enc.Utf8);
 }
 
-function getUserWithToken(user) {
-  var userInfo = _.pick(user, ['name', 'affiliation', 'email']);
-  const token = jwt.sign(userInfo, secretKey, { expiresIn: '1h'});
-  userInfo.token = token;
+function makeToken(user) {
+  return jwt.sign({ challenge: encrypt(user.email, secretKey) }, secretKey, { expiresIn: '1h'});
+}
+
+function getUserWithToken(user, projection = ['name', 'affiliation', 'email', 'settings']) {
+  var userInfo = _.pick(user, projection);
+  userInfo.token = makeToken(user);
   return userInfo;
 }
 
@@ -79,13 +85,15 @@ authRouter.post('/login', (req, res) => {
       } else {
         return res.json({user: getUserWithToken(user)});
       }
-    }).catch(genericErrorResponse);
+    }).catch(genericErrorResponse(res));
   }
 });
 
-authRouter.post('/validate_token', (req, res) => {
+
+// this is to "login"
+authRouter.post('/token_login', (req, res) => {
   const token = req.body.token;
-  jwt.verify(token, secretKey, (err, user) => {
+  jwt.verify(token, secretKey, (err, response) => {
     if (err) {
       switch (err.name) {
       case 'TokenExpiredError':
@@ -94,12 +102,36 @@ authRouter.post('/validate_token', (req, res) => {
         return res.json(makeError(Errors.InvalidToken));
       }
     } else {
-      findAdminUser(user.email).then((user) => {
+      findAdminUser(decrypt(response.challenge, secretKey)).then((user) => {
         if (user === null) {
         // if we get here, very possible that secure key has been compromised!
           return res.json(makeError(Errors.SessionExpired));
         } else { // SUCCESS - give back a user with new token
           return res.json({user: getUserWithToken(user)});
+        }
+      }).catch(genericErrorResponse);
+    }
+  });
+});
+
+// this is to "validate" the token, gets back only a new token if true
+authRouter.post('/validate_token', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, secretKey, (err, response) => {
+    if (err) {
+      switch (err.name) {
+      case 'TokenExpiredError':
+        return res.json(makeError(Errors.SessionExpired));
+      default:
+        return res.json(makeError(Errors.InvalidToken));
+      }
+    } else {
+      findAdminUser(decrypt(response.challenge, secretKey)).then((user) => {
+        if (user === null) {
+        // if we get here, very possible that secure key has been compromised!
+          return res.json(makeError(Errors.SessionExpired));
+        } else { // SUCCESS - give back a user with new token
+          return res.json({token: makeToken(user)});
         }
       }).catch(genericErrorResponse);
     }

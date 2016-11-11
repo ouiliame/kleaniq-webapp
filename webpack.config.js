@@ -7,7 +7,6 @@ function makeEntry(entries) {
     'webpack-dev-server/client?http://0.0.0.0:8080',
     'webpack/hot/only-dev-server'
   ];
-
   return devServerEntries.concat(entries);
 }
 
@@ -54,6 +53,17 @@ var config = {
         exclude: [/semantic/]
       },
 
+      {
+        test: /\.json/,
+        loader: 'json-loader'
+      },
+
+      {
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'node_modules/webworkify/index.js'),
+        loader: 'worker'
+      },
+
       { // fonts
         test: /\.(png|woff2?|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000'
@@ -63,6 +73,21 @@ var config = {
         test: /\.svg$/,
         loader: 'raw',
         include: [/images/]
+      },
+
+      {
+        test: /mapbox-gl.+\.js$/,
+        loader: 'transform/cacheable?brfs'
+      },
+
+      {
+        test: /react-map-gl-heatmap-overlay.+\.js/,
+        loader: 'transform/cacheable?brfs'
+      },
+
+      {
+        test: /webgl-heatmap.+\.js/,
+        loader: 'transform/cacheable?brfs'
       }
     ]
   },
@@ -82,7 +107,8 @@ var config = {
       path.resolve('./client/admin')
     ],
     alias: {
-      'kleaniq-semantic-ui-css': path.resolve('./semantic/dist/semantic.css')
+      'webworkify': 'webworkify-webpack',
+      'mapbox-gl$': 'mapbox-gl/dist/mapbox-gl.js'
     }
   },
 
@@ -94,14 +120,14 @@ var config = {
       filename: 'app/index.html',
       chunks: ['app'],
       inject: true,
-      template: 'client/app/index.template.html'
+      template: 'client/index.development.html'
     }),
 
     new HtmlWebpackPlugin({
       filename: 'admin/index.html',
       chunks: ['admin'],
       inject: true,
-      template: 'client/admin/index.template.html'
+      template: 'client/index.development.html'
     }),
 
     // generate static page HTML (public/index.html)
@@ -110,7 +136,7 @@ var config = {
     new HtmlWebpackPlugin({
       chunks: ['static'],
       inject: true,
-      template: 'client/static/index.template.html'
+      template: 'client/index.development.html'
     })
   ]
 };

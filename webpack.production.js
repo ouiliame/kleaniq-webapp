@@ -26,15 +26,10 @@ var config = {
         exclude: [/node_modules/, /semantic/]
       },
 
-/*
-
       {
-        test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
-        include: [/semantic/]
+        test: /\.json/,
+        loader: 'json-loader'
       },
-
-*/
 
       {
         test: /\.css$/,

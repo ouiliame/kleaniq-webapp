@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <b>3</b>
-    )
+    );
   }
 }
 

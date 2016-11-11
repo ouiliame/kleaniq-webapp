@@ -1,34 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import { Router, hashHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 
+import store from './state/store';
 import routes from './routes';
-import reducers from './state';
 
-const baseHistory = hashHistory;
+const history = syncHistoryWithStore(hashHistory, store);
 
-const rootReducer = combineReducers({
-  ...reducers,
-  routing: routerReducer
-});
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  rootReducer,
-  composeEnhancers(
-    applyMiddleware(thunk, routerMiddleware(baseHistory))
-  )
-);
+// TODO: remove hack below
+Router.prototype.componentWillReceiveProps = function(nextProps) {
+  let components = [];
+  function grabComponents(element) {
+    // This only works for JSX routes, adjust accordingly for plain JS config
+    if (element.props && element.props.component) {
+      components.push(element.props.component);
+    }
+    if (element.props && element.props.children) {
+      React.Children.forEach(element.props.children, grabComponents);
+    }
+  }
+  grabComponents(nextProps.routes || nextProps.children);
+  components.forEach(React.createElement); // force patching
+};
 
-const history = syncHistoryWithStore(baseHistory, store);
+if (module.hot) {
+  module.hot.accept();
+}
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <Router key={Math.random()} history={history}>
       { routes }
     </Router>
   </Provider>
