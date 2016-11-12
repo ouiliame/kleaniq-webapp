@@ -3,7 +3,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
-  devtool: 'cheap-source-map',
+  devtool: 'cheap-module-source-map',
 
   entry: {
     app: './client/app/index.js',
@@ -49,6 +49,12 @@ var config = {
       },
 
       {
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'node_modules/webworkify/index.js'),
+        loader: 'worker'
+      },
+
+      {
         test: /mapbox-gl.+\.js$/,
         loader: 'transform/cacheable?brfs'
       },
@@ -82,7 +88,8 @@ var config = {
       path.resolve('./client/vendor')
     ],
     alias: {
-      'kleaniq-semantic-ui-css': path.resolve('./semantic/dist/semantic.css')
+      'webworkify': 'webworkify-webpack',
+      'mapbox-gl$': 'mapbox-gl/dist/mapbox-gl.js'
     }
   },
 
