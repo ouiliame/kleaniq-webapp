@@ -3,7 +3,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
-  devtool: 'eval',
+  devtool: 'cheap-source-map',
 
   entry: {
     app: './client/app/index.js',
@@ -46,6 +46,21 @@ var config = {
         test: /\.svg$/,
         loader: 'raw',
         include: [/images/]
+      },
+
+      {
+        test: /mapbox-gl.+\.js$/,
+        loader: 'transform/cacheable?brfs'
+      },
+
+      {
+        test: /react-map-gl-heatmap-overlay.+\.js/,
+        loader: 'transform/cacheable?brfs'
+      },
+
+      {
+        test: /webgl-heatmap.+\.js/,
+        loader: 'transform/cacheable?brfs'
       }
     ]
   },
