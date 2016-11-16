@@ -54,6 +54,7 @@ var config = {
         loader: 'worker'
       },
 
+/*
       {
         test: /mapbox-gl.+\.js$/,
         loader: 'transform/cacheable?brfs'
@@ -68,6 +69,7 @@ var config = {
         test: /webgl-heatmap.+\.js/,
         loader: 'transform/cacheable?brfs'
       }
+*/
     ]
   },
 

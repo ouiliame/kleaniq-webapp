@@ -10,6 +10,7 @@ import App from './App';
 
 // APPS
 import AdminMap from 'apps/AdminMap';
+import Database from 'apps/Database';
 
 const loggedIn = UserAuthWrapper({
   authSelector: state => state.user,
@@ -25,6 +26,7 @@ const routes = (
     <Route path="app" component={loggedIn(App)}>
       <IndexRedirect to="AdminMap" />
       <Route path="AdminMap" component={AdminMap}/>
+      <Route path="Database" component={Database}/>
     </Route>
   </Route>
 );

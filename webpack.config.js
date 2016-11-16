@@ -30,7 +30,7 @@ var config = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot-loader/webpack', 'babel'],
+        loaders: ['react-hot-loader/webpack', 'babel-loader'],
         exclude: [/node_modules/, /semantic/]
       },
 
@@ -76,10 +76,11 @@ var config = {
       },
 
       {
-        test: /mapbox-gl.+\.js$/,
+        test: /\.js$/,
+        include: [/react-map-gl-heatmap-overlay/, /webgl-heatmap/, /headless-io/],
         loader: 'transform/cacheable?brfs'
-      },
-
+      }
+/*
       {
         test: /react-map-gl-heatmap-overlay.+\.js/,
         loader: 'transform/cacheable?brfs'
@@ -88,7 +89,13 @@ var config = {
       {
         test: /webgl-heatmap.+\.js/,
         loader: 'transform/cacheable?brfs'
+      },
+
+      {
+        test: /headless-io\.js/,
+        loader: 'transform/cacheable?brfs'
       }
+*/
     ]
   },
 
@@ -111,7 +118,6 @@ var config = {
       'mapbox-gl$': 'mapbox-gl/dist/mapbox-gl.js'
     }
   },
-
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

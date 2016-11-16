@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import autobind from 'autobind-decorator';
 import { Link } from 'react-router';
+import { push } from 'react-router-redux';
 import { scaleRotate } from 'react-burger-menu';
 import { decorator as reduxBurgerMenu } from 'redux-burger-menu';
 import { Header, Icon, Button, Menu } from 'semantic-ui-react';
@@ -38,26 +39,13 @@ const SideMenu = reduxBurgerMenu(scaleRotate);
 @autobind
 class NavMenu extends React.Component {
 
-  handleMenuClick(e) {
-    e.preventDefault();
-    console.log(e.target);
-  }
-
-  getAppMenus() {
-    const { activeApp } = this.props;
-    return [
-      <Menu.Item active={activeApp==='AdminMap'}>
-        <Icon name='map outline'/>
-        Admin Map
-      </Menu.Item>,
-      <Menu.Item active={activeApp==='AdminDB'}>
-        <Icon name='database'/>
-        Database
-      </Menu.Item>
-    ];
+  handleMenuClick(e, {name}) {
+    this.props.redirectTo('/app/' + name);
   }
 
   render () {
+    const { activeApp } = this.props;
+
     return (
       <SideMenu
         isOpen={false}
@@ -85,12 +73,19 @@ class NavMenu extends React.Component {
             <br/><br/>
           </div>
 
-          <Menu
-            fluid
-            vertical
-            inverted>
-            { this.getAppMenus() }
+          <Menu fluid vertical inverted>
+
+            <Menu.Item name='AdminMap' active={activeApp==='AdminMap'} onClick={this.handleMenuClick}>
+              <Icon name='map outline'/>
+              Admin Map
+            </Menu.Item>
+
+            <Menu.Item name='Database' active={activeApp==='Database'} onClick={this.handleMenuClick}>
+              <Icon name='database'/>
+              Database
+            </Menu.Item>
           </Menu>
+
         </div>
       </SideMenu>
     );
@@ -102,4 +97,4 @@ const mapStateToProps = (state) => ({
   activeApp: state.appInfo.name
 });
 
-export default connect(mapStateToProps)(NavMenu);
+export default connect(mapStateToProps, {redirectTo: push})(NavMenu);

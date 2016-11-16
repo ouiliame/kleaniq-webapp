@@ -291,7 +291,7 @@ atob@~1.1.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/atob/-/atob-1.1.3.tgz#95f13629b12c3a51a5d215abdce2aa9f32f80773"
 
-autobind-decorator, autobind-decorator@^1.3.3:
+autobind-decorator:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/autobind-decorator/-/autobind-decorator-1.3.4.tgz#b67560e6bbbb68a35c049c82d6351ea0e82d820d"
 
@@ -1141,10 +1141,6 @@ bowser@^1.0.0:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.4.6.tgz#2be801851089a165d504f417ea6ddcacf774af43"
 
-bowser@^1.2.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.5.0.tgz#b97414bacbc631f19f1e2e11466566ec19324983"
-
 brace-expansion@^1.0.0:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.6.tgz#7197d7eaa9b87e648390ea61fc66c84427420df9"
@@ -1923,60 +1919,6 @@ d@^0.1.1, d@~0.1.1:
   resolved "https://registry.yarnpkg.com/d/-/d-0.1.1.tgz#da184c535d18d8ee7ba2aa229b914009fae11309"
   dependencies:
     es5-ext "~0.10.2"
-
-d3-array@^1.0.1, d3-array@1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.0.1.tgz#375c02874fcd96c16ed9f1bcf5b4a7be53f358e7"
-
-d3-collection@1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/d3-collection/-/d3-collection-1.0.1.tgz#5b5c5626f731122b600b107d71a08833fec049ad"
-
-d3-color@^1.0.1, d3-color@1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.0.1.tgz#73cc91f4ee3f12e00ca06b1596a7c83cf104723a"
-
-d3-format@^1.0.2, d3-format@1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.0.2.tgz#138618320b4bbeb43b5c0ff30519079fbbd7375e"
-
-d3-geo@^1.2.4:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/d3-geo/-/d3-geo-1.3.1.tgz#1299fb6760794f074ccd3b34826cccdd6268323e"
-  dependencies:
-    d3-array "1"
-
-d3-interpolate@1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.1.1.tgz#f9ad4f9a421b22cad8838cf53d9bd2cbad0b8fd7"
-  dependencies:
-    d3-color "1"
-
-d3-scale@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-1.0.3.tgz#4f9e8f0cc2ea0f3925ff04ac27adc09045fa4c90"
-  dependencies:
-    d3-array "1"
-    d3-collection "1"
-    d3-color "1"
-    d3-format "1"
-    d3-interpolate "1"
-    d3-time "1"
-    d3-time-format "2"
-
-d3-selection@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.0.2.tgz#ae662afd4702ac9c5da039b2107a1764fa1c9070"
-
-d3-time-format@2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-2.0.2.tgz#1c537e9d4558966a658c51f4ca3dd1b47369c2d5"
-  dependencies:
-    d3-time "1"
-
-d3-time@1:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.0.4.tgz#2ceba09a76b7450c992a1ded4e10fc6195e69649"
 
 d3@^3.5.16:
   version "3.5.17"
@@ -2757,7 +2699,7 @@ faye-websocket@~0.11.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.4:
+fbjs@^0.8.1, fbjs@^0.8.4:
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.5.tgz#f69ba8a876096cb1b9bffe4d7c1e71c19d39d008"
   dependencies:
@@ -3839,7 +3781,7 @@ image-size@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.0.tgz#be7aed1c37b5ac3d9ba1d66a24b4c47ff8397651"
 
-immutable@^3.7.6, immutable@^3.8.1:
+immutable, immutable@^3.7.6:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
@@ -4968,17 +4910,17 @@ map-stream@~0.0.3, map-stream@~0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.0.6.tgz#d2ef4eb811a28644c7a8989985c69c2fdd496827"
 
-mapbox-gl-function@^1.0.0, mapbox-gl-function@^1.2.1, mapbox-gl-function@mapbox/mapbox-gl-function#111a2b442be0689a65f5818dd2603c9b06962be0:
+mapbox-gl-function@^1.0.0, mapbox-gl-function@^1.2.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/mapbox-gl-function/-/mapbox-gl-function-1.3.0.tgz#cee3d95750c189d45e83ab41a0a57fc2a8a509bc"
 
-mapbox-gl-shaders@mapbox/mapbox-gl-shaders#44b65f8090a74cbb0319664d010b8d8a8a1512b0, mapbox-gl-shaders@mapbox/mapbox-gl-shaders#df162476980d9ee2ab6f8d0cf5a06e27aac60472:
+mapbox-gl-shaders@mapbox/mapbox-gl-shaders#df162476980d9ee2ab6f8d0cf5a06e27aac60472:
   version "1.0.0"
   resolved "https://codeload.github.com/mapbox/mapbox-gl-shaders/tar.gz/df162476980d9ee2ab6f8d0cf5a06e27aac60472"
   dependencies:
     brfs "^1.4.0"
 
-mapbox-gl-style-spec@^8.4.2, mapbox-gl-style-spec@mapbox/mapbox-gl-style-spec#7d330d2abf1775abc95ab8b889089cf5ff579357:
+mapbox-gl-style-spec@^8.4.2:
   version "8.9.0"
   resolved "https://codeload.github.com/mapbox/mapbox-gl-style-spec/tar.gz/7d330d2abf1775abc95ab8b889089cf5ff579357"
   dependencies:
@@ -5061,37 +5003,6 @@ mapbox-gl@0.16.0:
     vector-tile "^1.2.0"
     vt-pbf "^2.0.2"
     webworkify "^1.0.2"
-
-mapbox-gl@0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.26.0.tgz#c667e8870ade4fb46f196fb4f9a675d2f3d70c3b"
-  dependencies:
-    csscolorparser "^1.0.2"
-    earcut "^2.0.3"
-    feature-filter "^2.2.0"
-    geojson-rewind "^0.1.0"
-    geojson-vt "^2.4.0"
-    gl-matrix "^2.3.1"
-    grid-index "^1.0.0"
-    mapbox-gl-function mapbox/mapbox-gl-function#111a2b442be0689a65f5818dd2603c9b06962be0
-    mapbox-gl-shaders mapbox/mapbox-gl-shaders#44b65f8090a74cbb0319664d010b8d8a8a1512b0
-    mapbox-gl-style-spec mapbox/mapbox-gl-style-spec#7d330d2abf1775abc95ab8b889089cf5ff579357
-    mapbox-gl-supported "^1.2.0"
-    package-json-versionify "^1.0.2"
-    pbf "^1.3.2"
-    pngjs "^2.2.0"
-    point-geometry "^0.0.0"
-    quickselect "^1.0.0"
-    request "^2.39.0"
-    shelf-pack "^1.0.0"
-    supercluster "^2.0.1"
-    tinyqueue "^1.1.0"
-    unassertify "^2.0.0"
-    unitbezier "^0.0.0"
-    vector-tile "^1.3.0"
-    vt-pbf "^2.0.2"
-    webworkify "^1.4.0"
-    whoots-js "^2.0.0"
 
 marked-terminal@^1.6.2:
   version "1.7.0"
@@ -6613,12 +6524,6 @@ punycode@1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.3.2.tgz#9653a036fb7c1ee42342f2325cceefea3926c48d"
 
-pure-render-decorator@^1.1.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/pure-render-decorator/-/pure-render-decorator-1.2.1.tgz#568870eeca17a1cee536b4fe94a3477fcd31eeb9"
-  dependencies:
-    fbjs "^0.8.0"
-
 q@^1.1.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.4.1.tgz#55705bcd93c5f3673530c2c2cbc0c2b3addc286e"
@@ -6772,25 +6677,6 @@ react-icons:
   dependencies:
     react-icon-base "2.0.3"
 
-react-map-gl:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-1.7.2.tgz#6097fdca294f777f92bfd2c2df9155d841b7df2a"
-  dependencies:
-    autobind-decorator "^1.3.3"
-    bowser "^1.2.0"
-    canvas-composite-types "^1.0.4"
-    d3-array "^1.0.1"
-    d3-color "^1.0.1"
-    d3-format "^1.0.2"
-    d3-geo "^1.2.4"
-    d3-scale "^1.0.3"
-    d3-selection "^1.0.2"
-    global "^4.3.0"
-    mapbox-gl "0.26.0"
-    pure-render-decorator "^1.1.0"
-    svg-transform "0.0.3"
-    viewport-mercator-project "^2.0.1"
-
 react-map-gl-heatmap-overlay:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/react-map-gl-heatmap-overlay/-/react-map-gl-heatmap-overlay-1.1.2.tgz#25e0ee3fc4be53a8612a2d5f20419f63f3c3943c"
@@ -6827,19 +6713,6 @@ react-mapbox-gl:
     deep-equal "^1.0.1"
     mapbox-gl "^0.25.1"
     reduce-object "^0.1.3"
-
-react-motion-menu:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/react-motion-menu/-/react-motion-menu-0.2.2.tgz#ea3aaac1b43af9b79fac3221f4bef05718e5d7dd"
-  dependencies:
-    react-motion "^0.3.1"
-
-react-motion@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.3.1.tgz#ac331083e0c2a0fc02fb782110657b7fa3bd663d"
-  dependencies:
-    performance-now "^0.2.0"
-    raf "^3.1.0"
 
 react-motion@^0.4.5:
   version "0.4.5"
@@ -7100,12 +6973,6 @@ redux-auth-wrapper:
 redux-burger-menu:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/redux-burger-menu/-/redux-burger-menu-0.0.5.tgz#14a099333d7bcbeb9c922ba6f2bac798530396eb"
-
-redux-map-gl:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/redux-map-gl/-/redux-map-gl-0.1.0.tgz#d2bec142d5c82bf67532b941c48197b4d3a350d8"
-  dependencies:
-    immutable "^3.8.1"
 
 redux-mouse:
   version "0.0.1"

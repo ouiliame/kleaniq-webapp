@@ -2,9 +2,6 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 
-import MapComponent from './components/MapComponent';
-import MapOverlay from './components/MapOverlay';
-
 import { AppInfo } from 'state/app/actions';
 import './style.css';
 
@@ -19,9 +16,8 @@ class AdminMap extends React.Component {
   render () {
 
     return (
-      <div>
-        <MapComponent />
-        <MapOverlay />
+      <div style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
+        Hello there
       </div>
     );
   }
@@ -32,7 +28,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setAppName: () => dispatch(AppInfo.setName('AdminMap'))
+  setAppName: () => dispatch(AppInfo.setName('Database'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminMap);

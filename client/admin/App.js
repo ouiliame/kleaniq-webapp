@@ -18,7 +18,7 @@ class App extends React.Component {
         <NavButton/>
         <NavMenu pageWrapId="admin-app" outerContainerId="admin-wrapper"/>
         <div id="admin-loading">
-          <RingLoader color='#2b2b2b' size="200px"/>
+          <RingLoader color='#2b2b2b' size="120px"/>
         </div>
         <div id="admin-app">
           { this.props.children }

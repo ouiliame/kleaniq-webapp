@@ -2,9 +2,11 @@ import { AppInfo } from './actions';
 import _ from 'lodash';
 
 import AdminMap from 'apps/AdminMap/reducer';
+import Database from 'apps/Database/reducer';
 
 const appReducers = {
-  AdminMap
+  AdminMap,
+  Database
 };
 
 export function appInfo(state = {}, action) {
