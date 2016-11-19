@@ -1,15 +1,14 @@
 import React from 'react';
-import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
+
+import { Application } from 'state/application/actions';
+
 import NavButton from 'components/NavButton';
 import NavMenu from 'components/NavMenu';
 import { RingLoader } from 'halogen';
 import './App.css';
 
 // admin pages have a menu !
-
-
-@autobind
 class App extends React.Component {
 
   render() {
@@ -33,6 +32,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  setAppName: (name) => dispatch(Application.setName(name))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

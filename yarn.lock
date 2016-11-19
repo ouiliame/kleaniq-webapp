@@ -2970,6 +2970,10 @@ function-bind@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
 
+fuse.js:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-2.5.0.tgz#98295c2ac1684edbba22250d7049cb6f033e95ce"
+
 gauge@~2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/gauge/-/gauge-2.6.0.tgz#d35301ad18e96902b4751dcbbe40f4218b942a46"
@@ -5181,15 +5185,15 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, "mkdirp@>=0.5 0", mkdirp@~0.5.0, mkdirp@~0.5.1, mk
   dependencies:
     minimist "0.0.8"
 
-mobx-react@^3.5.8:
-  version "3.5.8"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-3.5.8.tgz#90b5a3c14079875726fa45f2684ee9b73c03b404"
+mobx:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-2.6.2.tgz#55722706e485b56d88be2ff1811267b1e6703f5a"
+
+mobx-react:
+  version "3.5.9"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-3.5.9.tgz#b710299539d58d7af1189b5e86bc0be4198a43c1"
   dependencies:
     hoist-non-react-statics "^1.2.0"
-
-mobx@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-2.6.0.tgz#0ae83a20488b92d10d4ca326e18fe78a5ab7cb36"
 
 mocha@^3.1.2:
   version "3.1.2"
@@ -7328,6 +7332,10 @@ sax@^1.1.4, sax@~1.2.1:
 scale-color-perceptual@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/scale-color-perceptual/-/scale-color-perceptual-1.1.2.tgz#370fb1aa1fc48261d3048f34edfe6155fb0a52d5"
+
+seamless-immutable:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/seamless-immutable/-/seamless-immutable-6.3.0.tgz#218fd851bc5b989505998325f8c7713d35fafeb8"
 
 seedrandom@^2.3.11:
   version "2.4.2"

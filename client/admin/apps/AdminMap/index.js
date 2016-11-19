@@ -1,38 +1,47 @@
 import React from 'react';
-import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 
+import { Application } from 'state/application/actions';
+
+import AdminMapStore from './store';
 import MapComponent from './components/MapComponent';
 import MapOverlay from './components/MapOverlay';
 
-import { AppInfo } from 'state/app/actions';
 import './style.css';
 
-@autobind
+
 class AdminMap extends React.Component {
 
   constructor(props) {
     super(props);
-    this.props.setAppName();
+    this.props.init();
   }
 
   render () {
 
+    if (this.props.isLoading) {
+      return null;
+    }
+
+    const { store } = this.props;
+
     return (
       <div>
-        <MapComponent />
-        <MapOverlay />
+        <MapComponent store={store} />
+        <MapOverlay mouseX={this.props.mouseX} store={store} />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  mouseX: state.mouse.x
+const mapStateToProps = ({mouse, application}) => ({
+  mouseX: mouse.x,
+  store: application.store,
+  isLoading: !(application.store instanceof AdminMapStore)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setAppName: () => dispatch(AppInfo.setName('AdminMap'))
+  init: () => dispatch(Application.setName('AdminMap'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminMap);

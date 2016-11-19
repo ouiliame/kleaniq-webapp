@@ -13,3 +13,11 @@
 .hit {
   pointer-events: all;
 }
+
+#search-bar {
+  width: 350px;
+  & *> input {
+    width: 350px;
+    border-radius: 200rem;
+  }
+}

@@ -11,7 +11,7 @@ function makeEntry(entries) {
 }
 
 var config = {
-  devtool: 'cheap-eval-source-map',
+  devtool: 'eval',
 
   entry: {
     app: makeEntry('./client/app/index.js'),

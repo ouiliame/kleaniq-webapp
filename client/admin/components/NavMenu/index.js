@@ -55,7 +55,7 @@ class NavMenu extends React.Component {
         pageWrapId='admin-app'
         outerContainerId='admin-wrapper'>
 
-        <div id="side-menu-contents">fgr
+        <div id="side-menu-contents">
           <Header
             as='h3'
             inverted>
@@ -92,9 +92,9 @@ class NavMenu extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-  activeApp: state.appInfo.name
+const mapStateToProps = ({user, application}) => ({
+  user,
+  activeApp: application.name
 });
 
 export default connect(mapStateToProps, {redirectTo: push})(NavMenu);

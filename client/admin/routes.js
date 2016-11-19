@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import { Route, IndexRedirect } from 'react-router';
 import { routerActions } from 'react-router-redux';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 

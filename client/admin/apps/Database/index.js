@@ -1,34 +1,41 @@
 import React from 'react';
-import autobind from 'autobind-decorator';
+
+import { observer } from 'mobx-react';
 import { connect } from 'react-redux';
 
-import { AppInfo } from 'state/app/actions';
-import './style.css';
+import { Application } from 'state/application/actions';
+import DatabaseStore from './store';
 
-@autobind
-class AdminMap extends React.Component {
+@observer
+class Database extends React.Component {
 
   constructor(props) {
     super(props);
-    this.props.setAppName();
+    this.props.init();
   }
 
   render () {
 
+    if (this.props.isLoading) {
+      return null;
+    }
+
     return (
       <div style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
-        Hello there
+        Text
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  mouseX: state.mouse.x
+const mapStateToProps = ({mouse, application}) => ({
+  mouseX: mouse.x,
+  store: application.store,
+  isLoading: !(application.store instanceof DatabaseStore)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setAppName: () => dispatch(AppInfo.setName('Database'))
+  init: () => dispatch(Application.setName('Database'))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminMap);
+export default connect(mapStateToProps, mapDispatchToProps)(Database);
